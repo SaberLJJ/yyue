@@ -1,7 +1,7 @@
 <template>
-    <div class="w-[90%] ml-[5vw]">
+    <div class="w-[90%] ml-[5vw] dark:text-[#fff]">
         <div class="flex items-center justify-between">
-            <h2 class="text-1xl flex items-center pt-[4vw] pl-6 font-bold">热门话题<span>
+            <h2 class="text-1xl flex items-center pt-[4vw]  font-bold">热门话题<span>
                     <Icon icon="ic:baseline-greater-than" />
                 </span></h2>
             <span class="text-xl pt-2" @click="show = !show">
@@ -10,9 +10,8 @@
         </div>
         <van-swipe class="my-swipe pt-4" indicator-color="white">
             <van-swipe-item>
-                <ul class="overflow-hidden swiper-container5 h-[100%]  bg-white dark:bg-gray-600"
-                    style="border-radius: 20px">
-                    <div class="p-[20px] swiper-wrapper bg-white dark:bg-gray-600">
+                <ul class="overflow-hidden swiper-container5 h-[100%]  bg-white " style="border-radius: 20px">
+                    <div class="p-[20px] swiper-wrapper bg-white dark:bg-[#25252D]">
                         <div class="swiper-slide flex">
                             <div class="w-[70%] ">
                                 <p class="text-1xl font-bold">最令你感动的那首情歌</p>
@@ -55,7 +54,7 @@
                 </span>减少推荐
             </div>
             <div class="flex items-center pt-[3vw] pl-3 text-[#888B97] text-2xl"><span class="pr-[4vw]">
-                    <Icon icon="uiw:like-o" />
+                    <Icon icon="mingcute:more-4-line" />
                 </span>更多类容
             </div>
         </van-popup>

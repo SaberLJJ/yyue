@@ -1,6 +1,5 @@
 <template>
-    <div
-        class="w-[100%] h-[5vw] flex space-between items-center justify-evenly bg-gradient-to-r from-purple-300 to-pink-300 dark:bg-gray-600">
+    <div class="w-[100%] h-[5vw] text-[3vw] flex space-between items-center justify-evenly dark:bg-[#111827] ">
         <span class="text-[4vw] relative text-blue-gray-500" @click="show = !show">
             <Icon icon="iconoir:menu-scale" />
         </span>
@@ -8,8 +7,8 @@
             <Icon icon="grommet-icons:form-search" />
         </span>
         <input type="text"
-            class="h-[80%] text-[2vw] w-[70%] rounded-full suojin bg-gradient-to-r from-purple-100 to-pink-100"
-            :placeholder="tishi.showKeyword" :v-model="suokey">
+            class="h-[80%] text-[2vw] w-[70%] rounded-full suojin bg-gradient-to-r from-purple-100 to-pink-100 dark:bg-gray-800 "
+            :placeholder="tishi.showKeyword" :v-model="suokey" @click="tiao">
         <span class="text-[4vw] text-blue-gray-500">
             <Icon icon="solar:microphone-bold" />
         </span>
@@ -49,7 +48,7 @@
 
                 <div class="mt-[3vw]">
                     <van-cell-group inset>
-                        <div class="dark:bg-gray-900">
+                        <div class="dark:bg-[#2C2C2C] dark:text-[#fff]">
                             <div class="flex h-[8vw] items-center justify-between">
                                 <span class="flex items-center pl-[3vw]">
                                     <Icon icon="mdi:envelope-outline" />
@@ -83,7 +82,7 @@
 
                 <div class="mt-[3vw]">
                     <van-cell-group inset>
-                        <div class="dark:bg-gray-900">
+                        <div class="dark:bg-[#2C2C2C] dark:text-[#fff]">
                             <div class="flex h-[8vw] items-center justify-between">
                                 <span class="flex items-center pl-[3vw]">
                                     <Icon icon="material-symbols:hexagon-outline" />
@@ -154,7 +153,7 @@
 
                 <div class="mt-[3vw]">
                     <van-cell-group inset>
-                        <div class="dark:bg-gray-900">
+                        <div class="dark:bg-[#2C2C2C] dark:text-[#fff]">
                             <div class="flex h-[8vw] items-center justify-between">
                                 <span class="flex items-center pl-[3vw]">
                                     <Icon icon="ep:set-up" />
@@ -243,7 +242,7 @@
 
                 <div class="mt-[3vw]">
                     <van-cell-group inset>
-                        <div class="dark:bg-gray-900">
+                        <div class="dark:bg-[#2C2C2C] dark:text-[#fff] text-[3vw]">
                             <div class="flex h-[8vw] items-center justify-between">
                                 <span class="flex items-center pl-[3vw]">
                                     <Icon icon="material-symbols:hexagon-outline" />
@@ -322,8 +321,7 @@
 
                 <div class="mt-[3vw]">
                     <van-cell-group inset>
-                        <div
-                            class="flex h-[8vw] items-center justify-around text-[red] dark:bg-gray-900 dark:text-slate-500">
+                        <div class="flex h-[8vw] items-center justify-around text-[red] dark:bg-[#2C2C2C] dark:text-[#fff]">
                             退出登录/关闭
                         </div>
                     </van-cell-group>
@@ -335,7 +333,7 @@
 </template>
 
 <script>
-import { featchSearchDefault, fetchSearchResult } from '../request/index'
+import { fetchSearchDefault, fetchSearchResult } from '../request/index'
 export default {
     name: 'search',
     data() {
@@ -354,7 +352,7 @@ export default {
     async created() {
 
         // 搜索部分
-        const ress = await featchSearchDefault().catch((err) => console.log(err));
+        const ress = await fetchSearchDefault().catch((err) => console.log(err));
         this.tishi = ress.data.data;
         console.log(this.tishi);
 
@@ -364,6 +362,10 @@ export default {
         fn() {
             this.checked = !this.checked;
             this.$emit('update:checkeds', this.checked)
+        },
+
+        tiao() {
+            this.$router.push('/suosou')
         }
     },
 

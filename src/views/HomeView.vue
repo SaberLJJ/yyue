@@ -32,7 +32,7 @@
 <script>
 import axios from 'axios';
 
-import { featchSearchDefault, fetchSearchResult } from './request/index'
+import { featchSearchDefault, fetchSearchResult } from '../request/index'
 
 export default {
     data() {
@@ -40,15 +40,14 @@ export default {
 
     },
     components: {
-        search: () => import('./components/search.vue'),
-        lunbotu: () => import('./components/RotationChart.vue'),
-        caidan: () => import('./components/Menu.vue'),
-        gedantuijian: () => import('./components/GeDantui.vue'),
-        xingexindie: () => import('./components/xingexindie.vue'),
-        paihangbang: () => import('./components/paihangbang.vue'),
-        yingyuetili: () => import('./components/yinyuerili.vue'),
-        remhuati: () => import('./components/remenhuati.vue'),
-        huanse: () => import('./components/switch.vue'),
+        search: () => import('../components/search.vue'),
+        lunbotu: () => import('../components/RotationChart.vue'),
+        caidan: () => import('../components/Menu.vue'),
+        gedantuijian: () => import('../components/GeDantui.vue'),
+        xingexindie: () => import('../components/xingexindie.vue'),
+        paihangbang: () => import('../components/paihangbang.vue'),
+        yingyuetili: () => import('../components/yinyuerili.vue'),
+        remhuati: () => import('../components/remenhuati.vue'),
     },
     methods: {
         toggleMenu(name) {

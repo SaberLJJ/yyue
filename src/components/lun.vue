@@ -2,7 +2,7 @@
     <div>
 
         <ul class="overflow-hidden">
-            <div class="w-[30vw] h-[31vw] overflow-hidden relative">
+            <div class="w-[32vw] h-[32vw] overflow-hidden relative">
                 <transition name="abc">
                     <div v-if="visible" class=" w-[100%] h-[100%] absolute top-0 left-0">
                         <img alt="" src="http://p1.music.126.net/6MPDyBrXtrDTRmEU_HkSoQ==/109951168689030052.jpg"

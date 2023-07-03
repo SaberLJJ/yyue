@@ -1,9 +1,9 @@
 <template>
-    <ul class=" p-[1.5vw] overflow-auto flex relative justify-between items-center menu pt-[4vw]">
+    <ul class=" p-[1.5vw] overflow-auto flex relative justify-between items-center menu pt-[4vw] ">
         <template v-for="(item, index) in menu">
             <li v-if="true" :key="item.id" class="flex flex-col items-center mr-[5vw]">
                 <Icon :icon="icon[index]" color="red" width="36" height="36" class="w-[5vw] h-[5vw]" />
-                <p class="text-[#969aa3] text-[1.5vw] w-[15vw] text-center">{{ item.name }}</p>
+                <p class="text-[#969aa3] dark:text-[#fff] text-[1.5vw] w-[15vw] text-center">{{ item.name }}</p>
             </li>
 
 

@@ -1,15 +1,15 @@
 <template>
     <div cl>
         <div class="flex items-center justify-between">
-            <h2 class="text-1xl flex items-center pt-[4vw] pl-6 font-bold">音乐日历<span>
+            <h2 class="text-1xl flex dark:text-[#fff] items-center pt-[4vw] pl-6 font-bold">音乐日历<span>
                     <Icon icon="ic:baseline-greater-than" />
                 </span></h2>
-            <span class="text-xl pt-2" @click="show = !show">
+            <span class="text-xl pt-2 mr-5" @click="show = !show">
                 <Icon icon="ri:more-2-fill" />
             </span>
         </div>
 
-        <ul class="bg-[#fff] rounded-[2vw] dark:bg-gray-600 w-[90%] mx-auto mt-4">
+        <ul class="bg-[#fff] rounded-[2vw] dark:bg-[#26262E] w-[90%] dark:text-[#fff] mx-auto mt-4">
             <li class="flex items-center justify-around" v-for="item in rili" :key="item.id">
                 <div class="w-[60vw]">
                     <p>{{ dayjs(onlineTime).format('MM/DD') }}</p>
@@ -30,7 +30,7 @@
                 </span>减少推荐
             </div>
             <div class="flex items-center pt-[3vw] pl-3 text-[#888B97] text-2xl"><span class="pr-[4vw]">
-                    <Icon icon="uiw:like-o" />
+                    <Icon icon="mingcute:more-4-line" />
                 </span>更多类容
             </div>
         </van-popup>

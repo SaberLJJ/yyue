@@ -1,17 +1,17 @@
 <template>
-    <div class="dark:bg-gray-900">
+    <div class=" dark:text-[#fff]">
         <div class="flex items-center justify-between">
             <h2 class="text-1xl flex items-center pt-[4vw] pl-6 font-bold">排行榜<span>
                     <Icon icon="ic:baseline-greater-than" />
                 </span></h2>
-            <span class="text-xl pt-2" @click="show = !show">
+            <span class="text-xl pt-2 pr-6" @click="show = !show">
                 <Icon icon="ri:more-2-fill" />
             </span>
         </div>
         <van-swipe class="my-swipe pl-6" :loop="false" indicator-color="white" :show-indicators="false">
             <van-swipe-item v-for="item in blocks">
                 <div :key="item.id"
-                    class="p-[2vw] mr-[10vw] overflow-hidden w-[90vw] m-[2.5vw] ml-0 h-[50vw] bg-white scroll-item dark:bg-gray-600"
+                    class="p-[2vw] mr-[10vw] overflow-hidden w-[90vw] m-[2.5vw] ml-0 h-[50vw] bg-white scroll-item dark:bg-[#26262E] rounded-lg"
                     ref="song">
                     <div class="flex justify-between w-[100%]">
                         <h2 class="text-1xl pt-[2vw]  pl-1 font-bold ">{{ item.uiElement.mainTitle.title }}</h2>
@@ -65,7 +65,7 @@
                 </span>减少推荐
             </div>
             <div class="flex items-center pt-[3vw] pl-3 text-[#888B97] text-2xl"><span class="pr-[4vw]">
-                    <Icon icon="uiw:like-o" />
+                    <Icon icon="mingcute:more-4-line" />
                 </span>更多类容
             </div>
         </van-popup>

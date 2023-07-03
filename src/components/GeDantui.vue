@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class=" dark:text-[#fff]">
         <div class="flex items-center justify-between">
             <h2 class="text-1xl flex items-center pt-[4vw] pl-6 font-bold">推荐歌单<span>
                     <Icon icon="ic:baseline-greater-than" />
@@ -9,7 +9,7 @@
             </span>
         </div>
 
-        <div class="pl-6 pt-[1vw] w-screen flex overflow-auto menu">
+        <div class="pl-6 pt-[1vw] w-screen flex overflow-auto menu h-[40vw]">
             <gundong></gundong>
             <ul class="flex justify-between pl-[5vw]  menu relative w-[270vw]">
                 <li class="w-[30vw] h-[35vw] pl-[3vw] relative" v-for="item in personalized">
@@ -45,7 +45,7 @@
                 </span>减少推荐
             </div>
             <div class="flex items-center pt-[3vw] pl-3 text-[#888B97] text-2xl"><span class="pr-[4vw]">
-                    <Icon icon="uiw:like-o" />
+                    <Icon icon="mingcute:more-4-line" />
                 </span>更多类容
             </div>
         </van-popup>

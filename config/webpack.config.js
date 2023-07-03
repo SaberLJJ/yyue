@@ -44,11 +44,11 @@ module.exports = {
     ],
   },
   mode: process.env.NODE_ENV,
-  // resolve: {
-  //   alias: {
-  //     '@': path.resolve(__dirname, '../src'),
-  //   },
-  // },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, '../src'),
+    },
+  },
   externals: {
     jquery: 'jQuery',
     lodash: '_',
