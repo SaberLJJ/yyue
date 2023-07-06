@@ -321,7 +321,8 @@
 
                 <div class="mt-[3vw]">
                     <van-cell-group inset>
-                        <div class="flex h-[8vw] items-center justify-around text-[red] dark:bg-[#2C2C2C] dark:text-[#fff]">
+                        <div class="flex h-[8vw] items-center justify-around text-[red] dark:bg-[#2C2C2C] dark:text-[#fff]"
+                            @click="openConfirmDialog">
                             退出登录/关闭
                         </div>
                     </van-cell-group>
@@ -333,7 +334,9 @@
 </template>
 
 <script>
-import { fetchSearchDefault, fetchSearchResult } from '../request/index'
+import { fetchSearchDefault, fetchSearchResult } from '../request/index';
+import { Dialog } from 'vant';
+
 export default {
     name: 'search',
     data() {
@@ -366,7 +369,30 @@ export default {
 
         tiao() {
             this.$router.push('/suosou')
-        }
+        },
+        openConfirmDialog() {
+            Dialog.confirm({
+                message: '确定要退出当前的账号吗',
+            })
+                .then(() => {
+                    // on confirm
+                    // console.log('Confirmed');
+                    // localStorage.clear(); // 清除 localStorage
+                    // 获取 __m__cookie 值
+                    const mCookie = localStorage.getItem("__m__cookie");
+
+                    // 移除 __m__cookie 键
+                    localStorage.removeItem("__m__cookie");
+
+                    this.$router.push('/Login')
+
+                })
+                .catch(() => {
+                    // on cancel
+                    // console.log('Cancelled');
+                });
+        },
+
     },
 
 };

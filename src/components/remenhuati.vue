@@ -8,10 +8,11 @@
                 <Icon icon="ri:more-2-fill" />
             </span>
         </div>
-        <van-swipe class="my-swipe pt-4" indicator-color="white">
+        <van-swipe class="my-swipe pt-4" indicator-color="white" :show-indicators="false">
             <van-swipe-item>
-                <ul class="overflow-hidden swiper-container5 h-[100%]  bg-white " style="border-radius: 20px">
-                    <div class="p-[20px] swiper-wrapper bg-white dark:bg-[#25252D]">
+                <ul class="overflow-hidden dark:bg-[#25252D] swiper-container5 h-[100%]  bg-[#B38C8F] "
+                    style="border-radius: 20px">
+                    <div class="p-[20px] swiper-wrapper bg-[#B38C8F] dark:bg-[#25252D]">
                         <div class="swiper-slide flex">
                             <div class="w-[70%] ">
                                 <p class="text-1xl font-bold">最令你感动的那首情歌</p>
@@ -26,8 +27,9 @@
                 </ul>
             </van-swipe-item>
             <van-swipe-item>
-                <ul class="overflow-hidden swiper-container5 h-[100%] bg-white" style="border-radius: 20px">
-                    <div class="p-[20px] swiper-wrapper bg-white">
+                <ul class="overflow-hidden dark:bg-[#25252D] swiper-container5 h-[100%] bg-white"
+                    style="border-radius: 20px">
+                    <div class="p-[20px] swiper-wrapper dark:bg-[#25252D] bg-[#A0A0A0]">
                         <div class="swiper-slide flex">
                             <div class="w-[70%]">
                                 <p class="text-1xl font-bold">今天心情真不错</p>

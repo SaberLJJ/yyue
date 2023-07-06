@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackBar = require('webpackbar');
+const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 // const glob = require('glob');
@@ -86,5 +87,8 @@ module.exports = {
     }),
     // 请确保引入这个插件！
     new VueLoaderPlugin(),
+    new CopyPlugin({
+      patterns: [{ from: './src/static', to: './static' }],
+    }),
   ],
 };

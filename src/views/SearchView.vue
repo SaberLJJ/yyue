@@ -1,5 +1,5 @@
 <template>
-    <div class="w-screen bg-[#f8f9fd]" :class="[userSearchKeywords != '' ? 'h-screen' : '']">
+    <div class="w-screen bg-[#F8F9FB] overflow-hidden" :class="[userSearchKeywords != '' ? 'h-screen' : '']">
         <div :class="['w-[100vw]', 'flex', 'items-center', 'justify-between', 'p-[1.5vw]']"
             class="dark:bg-[#1b1b23] mb-[4.5vw]">
             <Icon icon="ph:arrow-left-light" color="#35363a" width="36" height="36" class="w-[8vw] h-[8vw] 'mr-[1.5vw]'"
@@ -48,33 +48,27 @@
 
             <div class="mt-[4.5vw] w-[100vw] p-[1.5vw]">
                 <van-swipe v-if="width != 0" :width="width" :show-indicators="false" :loop="false">
-                    <van-swipe-item @change="onChange" v-for="index in 10" :key="index">
-                        <div class="w-[60vw] mr-[2vw] bg-[#fff] p-[4vw] rounded-[2vw]">
-                            <div
-                                class="text-[3.5vw] font-bold border-b-[.25vw] items-center border-[#e8e8e8] pb-[4vw] text-[#272d3d] flex">
-                                <span>热搜榜</span>
-                                <div
-                                    class="flex items-center text-[1.5vw] bg-[#e8e8e8] ml-[2vw] font-semibold w-[8vw] h-[3vw] justify-center rounded-[2.5vw]">
-                                    <Icon icon="bi:play-fill" color="#333a40" class="w-[2vw] h-[2vw]" />
-                                    播放
-                                </div>
+                    <van-swipe-item class="flex flex-col w-[50vw] rounded-[3vw] mt-[4vw] mr-[4vw] bg-[#fff]"
+                        v-for="item in pNodes" :key="item.id">
+                        <h1 class="w-[56vw] m-auto p-[2vw] text-[3vw]">
+
+                            {{ item.name }}
+                        </h1>
+                        <hr class="w-[90%] ml-[3vw]">
+                        <div class="mt-[3vw]">
+                            <div v-for="(items, indexs) in item.tracks.slice(0, 20)" :key="items.id"
+                                class="flex text-[2vw] h-[7vw]">
+                                <span v-if="indexs + 1 <= 3" class="text-[red] ml-[6vw]">{{
+                                    indexs + 1
+                                }}</span>
+                                <span v-if="indexs + 1 > 3" class="text-[#abadb4] ml-[6vw]">{{
+                                    indexs + 1
+                                }}</span>
+                                <p class="ml-[2vw] w-[54vw]  truncate">{{ items.name }}</p>
                             </div>
-                            <ul class="mt-[2vw]">
-                                <li class="flex text-[2.5vw] items-center mb-[2vw] text-[#2c333d]"
-                                    v-for="(item, index) in detail" :key="item.id">
-                                    <span :class="[index < 3 ? 'text-[#f64146]' : 'text-[#848486]']" class="w-[3vw]">{{
-                                        index + 1
-                                    }}</span>
-                                    <span :class="[index < 3 ? ' font-bold ' : ' font-medium']" class="ml-[2vw]">{{
-                                        item.searchWord
-                                    }}</span>
-                                    <Icon v-if="item.iconType == 5" icon="solar:arrow-up-bold" color="#ff3938"
-                                        class=" w-[2.5vw] h-[2.5vw] ml-[1vw]" />
-                                    <Icon v-else-if="item.iconType == 1" icon="mdi:hot" color="#ff3938"
-                                        class=" w-[2.5vw] h-[2.5vw] ml-[1vw]" />
-                                </li>
-                            </ul>
                         </div>
+
+
                     </van-swipe-item>
                 </van-swipe>
             </div>
@@ -94,7 +88,7 @@
 </template>
 <script>
 import { fetchDetail, fetchSearchSuggest, fetchPlaylists, fetchSearchDefault } from '@/request/index'
-import _ from "lodash"
+import debounce from 'lodash/debounce';
 import Vue from 'vue';
 import { Swipe, SwipeItem } from 'vant';
 import axios from 'axios';
@@ -112,6 +106,7 @@ export default {
             loaded: false,
             current: 0,
             width: 0,
+            pNodes: [],
         }
     },
     async created() {
@@ -127,7 +122,21 @@ export default {
         window.addEventListener('resize', function () {
             that.width = window.innerWidth * 0.62
         })
+
+        const res1 = await axios.get(
+            'https://netease-cloud-music-api-five-roan-88.vercel.app/toplist/detail'
+        );
+        const playlist = await Promise.all(
+            res1.data.list.map(({ id }) =>
+                axios.get(
+                    'https://netease-cloud-music-api-five-roan-88.vercel.app/playlist/detail',
+                    { params: { id } }
+                )
+            )
+        );
+        this.pNodes = playlist.map((item) => item.data.playlist).slice(0, 11);
     },
+
     watch: {
         activeMenuItem: {
             async handler(newCat) {
@@ -136,15 +145,14 @@ export default {
                 console.log(this.playlists);
             },
         },
-        // userSearchKeywords: _.debounce(async function (keywords) {
-        //     if (this.userSearchKeywords != '') {
-        //         const res = await fetchSearchSuggest({
-        //             params: {
-        //                 keywords
-        //             }
-        //         });
-        //     }
-        // }, 300),
+        userSearchKeywords: debounce(async function (keywords) {
+            if (this.userSearchKeywords != '') {
+                const res = await fetchSearchSuggest(keywords);
+                this.keywords = res.data.result.songs;
+                console.log(this.keywords);
+            }
+
+        }, 300),
     },
     methods: {
         onChange(index) {

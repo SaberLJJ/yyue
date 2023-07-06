@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: '/home',
+    redirect: '/Login',
   },
   {
     path: '/home',
@@ -21,6 +21,20 @@ const routes = [
     path: '/suosou',
     name: 'Sousuo',
     component: () => import('../views/SearchView.vue'),
+  },
+  {
+    path: '/SongSheet',
+    name: 'SongSheet',
+    component: () => import('../views/SongSheet.vue'),
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component: () => import('../views/Login.vue'),
+  },
+  {
+    path: '/song',
+    component: () => import('../views/SongSheet.vue'),
   },
 ];
 

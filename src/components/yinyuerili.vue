@@ -57,7 +57,6 @@ export default {
             )
             .then((res) => {
                 this.rili = res.data.data.calendarEvents;
-                // console.log(this.personalized);
             })
             .catch((err) => {
                 console.log(err);
