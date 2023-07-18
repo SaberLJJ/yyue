@@ -2,13 +2,13 @@
     <div>
         <h2 class="text-xl font-bold text-center mt-4 mb-4">歌单广场</h2>
         <ul class="flex">
-            <li v-for="item in menu" class="mx-4" v-bind:class="{ active: item.name === activeMenuItem }"
+            <li v-for="item in menu" :key="item.id" class="mx-4" v-bind:class="{ active: item.name === activeMenuItem }"
                 v-on:click="toggleMenu(item.name)">
                 {{ item.name }}
             </li>
         </ul>
         <ul class="flex flex-wrap liebiao ">
-            <li v-for="item in playlists" class="w-[200px] relative">
+            <li v-for="item in playlists" class="w-[200px] relative" :key="item.id">
                 <div class="w-[200px] h-[200px] rounded-2xl overflow-hidden">
                     <img :src="item.coverImgUrl" alt="" class="w-[200px] h-[200px]" />
                 </div>

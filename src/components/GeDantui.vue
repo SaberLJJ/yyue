@@ -12,7 +12,7 @@
         <div class="pl-6 pt-[1vw] w-screen flex overflow-auto menu h-[40vw]">
             <gundong></gundong>
             <ul class="flex justify-between pl-[5vw]  menu relative w-[270vw]">
-                <li class="w-[30vw] h-[35vw] pl-[3vw] relative" v-for="(item, index) in personalized">
+                <li class="w-[30vw] h-[35vw] pl-[3vw] relative" v-for="(item, index) in personalized" :key="item.id">
                     <div class="w-[100%] h-[80%] overflow-hidden rounded-lg">
                         <img :src="item.picUrl" alt="" class="w-[100%] h-[100%]" @click="songDetails(index)">
                     </div>
@@ -77,16 +77,13 @@ export default {
             )
             .then((res) => {
                 this.personalized = res.data.result;
-                console.log(this.personalized);
+                console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
             });
     },
     methods: {
-        // getsong(index) {
-        //     this.$router.push('./SongSheet')
-        // },
         songDetails(index) {
             this.$router.push({ path: '/song', query: { id: this.personalized[index].id } });
         },

@@ -1,98 +1,88 @@
 <template>
-    <div>
-        <!-- 顶部标题 -->
-        <div class="w-[88vw] mx-auto flex justify-between pt-[7vw]">
-            <Icon icon="formkit:left" width="4vw" heigt="4vw" @click.native="$router.push('/home')" />
-            <p class="text-[5vw] text-[#737373]">游客登录</p>
-        </div>
-        <!-- logo -->
-        <div class="flex justify-center pt-[15vw]">
-            <!-- <img src="../static/logo.fill.svg" alt="SVG Image" class="w-[39vw] h-[7vw]" /> -->
-            <Icon icon="ri:netease-cloud-music-fill" color="red" class=" w-[7vw] h-[7vw]" />
-            <p class="text-[5vw] font-[600] pl-3">网易云音乐</p>
-        </div>
-        <!-- 二维码 -->
-        <div v-if="state == 0">
-            <div class="flex justify-center pt-[10vw]">
-                <img :src="qrcode" alt="" />
-            </div>
-            <div class="flex justify-center pt-[11vw]">
-                <p>使用<span class="text-[#1d7ac3]">网易云音乐APP</span>扫码登录</p>
-            </div>
-        </div>
-        <div v-if="state == 800" class="pt-[10vw] relative">
-            <div class="flex justify-center">
-                <img :src="qrcode" alt="" />
-            </div>
-            <div class="absolute top-[14vw] left-[30vw] bg-[#dfdfdf] w-[40vw] h-[40vw]"
-                :style="{ backgroundColor: `rgba(255,255,255,.5)` }">
-                <div class="text-center w-[20vw] h-[8vw] bg-[#fe020f] rounded-[16vw] leading-[8vw] text-[#fff] mx-auto mt-[16vw]"
-                    @click="shua">
-                    点击刷新
+    <div class=" w-screen h-screen pt-[6vw] bg-[#fdfdfe] flex flex-col justify-between">
+        <header class="flex items-center px-[6vw] justify-between">
+            <Icon icon="ph:arrow-left-light" color="#000" width="36" height="36" class="w-[5vw] h-[5vw]" />
+            <span class="text-[4vw] text-[#6b6b6b]">游客登录</span>
+        </header>
+        <section class="flex flex-col justify-center items-center mb-[10vw]">
+            <div class="flex flex-col">
+                <div class="flex items-center">
+                    <Icon icon="ri:netease-cloud-music-fill" color="#d4251f" class="w-[7.5vw] h-[7.5vw] mr-[2vw] " />
+                    <span class="text-[5vw]">网易云音乐</span>
+                </div>
+                <div class=" my-[10vw] relative" v-if="user">
+                    <img :src="qrcode" alt="" class="w-[40vw] h-[40vw]">
+                    <div class="flex justify-center items-center absolute z-[10] w-[40vw] h-[40vw] top-0"
+                        :style="{ backgroundColor: 'rgba(255,255,255,.7)' }" v-if="show">
+                        <div
+                            class="bg-[red] w-[18vw] h-[7vw] flex items-center justify-center rounded-[4vw] shadow-lg shadow-[#ccc]">
+                            <span class="text-[#fff] text-[2vw]">点击刷新</span>
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="my-[10vw]">
+                    <img src="/static/dengdai.png" alt="" class="w-[40vw] h-[40vw]">
+                </div>
+                <p class="text-[3vw]" v-if="user">
+                    使用 <a href="#" class="text-[#4a9de6]">网易云音乐APP</a> 扫码登录
+                </p>
+                <div v-else class="text-[3vw]">
+                    <p>扫描成功</p>
+                    <p>请在手机上确认</p>
                 </div>
             </div>
-            <div class="flex justify-center pt-[11vw]">
-                <p>使用<span class="text-[#1d7ac3]">网易云音乐APP</span>扫码登录</p>
-            </div>
-        </div>
-
-        <div v-if="state == 802">
-            <div class="flex justify-center mt-[10vw]">
-                <!-- <img src="../static/logo.fill.svg" alt="SVG Image" class="w-[39vw] h-[7vw]" /> -->
-            </div>
-            <div class="flex justify-center mt-[8vw]">
-                <p class="text-[5vw]">扫描成功</p>
-            </div>
-            <div class="flex justify-center mt-[6vw]">
-                <p>请在手机上确认登录</p>
-            </div>
-        </div>
+        </section>
+        <footer :style="{ backgroundImage: 'url(/static/bg-login.jpg)' }" class="w-[100vw] h-[20vh] bg-cover">
+        </footer>
     </div>
 </template>
-
 <script>
-import { getQrKey, getQrInfo, checkQrStatus } from '@/request/index';
 import store from 'storejs'
+import { getQRKey, getQrInfo, checkQrStatus } from '@/request/index'
 export default {
     name: 'Login',
     data() {
         return {
             qrcode: '',
-            state: 0,
-        };
+            show: false,
+            user: true
+        }
     },
     methods: {
         pollingCheck(key, interval = 1000) {
             const timer = setInterval(async () => {
                 const res = await checkQrStatus(key);
                 if (res.data.code === 800) {
-                    // alert('此二维码已过期,请刷新后重试!')
-                    clearInterval(timer)
-
+                    this.user = true;
+                    this.show = true;
+                    console.log('二维码已过期');
+                    clearInterval(timer);
+                } else if (res.data.code == 802) {
+                    this.user = false
                 }
                 else if (res.data.code === 803) {
-                    clearInterval(timer)
+                    clearInterval(timer);
                     console.log(res.data.cookie);
                     store.set('__m__cookie', res.data.cookie);
-                    this.$router.push('/home')
-
+                    this.$router.push({
+                        path: '/home',
+                    });
                 }
             }, interval)
-            this.$on('hook:beforeDestroy', () =>
-                clearInterval(timer))
+            this.$on('hook:beforeDestroy')
         },
     },
     async created() {
-        const res = await getQrKey().catch((err) => {
-            console.log(err)
+        const res = await getQRKey().catch((err) => {
+            console.log(err);
+        })
+        const qrInfo = await getQrInfo(res.data.data.unikey).catch((err) => {
+            console.log(err);
         });
-        const qrInfo = await getQrInfo(res.data.data.unikey).catch((err) =>
-            console.log(res)
-        )
-        console.log(res.data.data.unikey) //af0dc446-cb52-4a9f-b511-2b162ca8e6b8
-        // console.log(qrInfo.data.data.qrimg)
-        this.qrcode = qrInfo.data.data.qrimg;
-        this.pollingCheck(res.data.data.unikey)
-    },
+        this.qrcode = qrInfo.data.data.qrimg
+        let key = res.data.data.unikey
+        this.pollingCheck(key, 10000)
+    }
 }
 </script>
+<style></style>

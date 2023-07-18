@@ -18,7 +18,7 @@
         <div class="flex-auto relative overflow-auto">
             <div class="flex justify-between items-center fixed top-0 w-[100vw] h-[11vw] bg-[#4B7E91] z-10">
                 <div class="flex ml-4">
-                    <span class="text-[5vw] cursor-pointer" @click="$router.push('/home')">
+                    <span class="text-[5vw] cursor-pointer" @click="$router.push('/UserDetails')">
                         <Icon icon="ic:round-arrow-back" color="white" />
                     </span>
                     <p class=" text-[#fbfbf5] font-[700] line-clamp-2 w-[60vw]">
@@ -49,9 +49,10 @@
                             <h1 class="text-[3vw] text-[#fff] font-bold ">{{ songList.name }}</h1>
                             <div class="flex items-center mt-3">
                                 <div class="w-[8vw] h-[8vw] rounded-[8vw] overflow-hidden bg-[pink]">
-                                    <img :src="songList.creator.avatarUrl" alt="">
+                                    <img v-if="songList.creator" :src="songList.creator.avatarUrl" alt="">
                                 </div>
-                                <p class="text-[#fff] text-[3vw] ml-3">{{ songList.creator.nickname }}</p>
+                                <p v-if="songList.creator" class="text-[#fff] text-[3vw] ml-3">{{ songList.creator.nickname
+                                }}</p>
                                 <div class=" h-[4vw] rounded-lg bg-white bg-opacity-50  ml-3 flex items-center text-[2vw]">
                                     <span class="text-[3vw] pl-1">
                                         <Icon icon="material-symbols:add" color="white" />
@@ -91,13 +92,14 @@
                     <div class="w-[100%] flex justify-between items-center pt-3 text-[#fff]">
                         <p class="text-[3vw] pl-3">喜欢这个歌单的用户也听了</p>
                         <p class="text-[7vw] pr-3">
-                            <Icon icon="uil:arrow-up" color="white" />
+                            <Icon icon="uil:arrow-up" color="white" @click.native="showdown" />
                         </p>
                     </div>
 
                     <div class=" pt-[1vw] w-screen flex overflow-auto menu">
                         <ul class="flex justify-between pl-[5vw]  menu relative w-[270vw]">
-                            <li class="w-[30vw]  pl-[3vw] relative" v-for="(  item, index  ) in   personalized  ">
+                            <li class="w-[30vw]  pl-[3vw] relative" v-for="(  item, index  ) in   personalized  "
+                                :key="item.id">
                                 <div class="w-[100%] h-[80%] overflow-hidden rounded-lg">
                                     <img :src="item.picUrl" alt="" class="w-[100%] h-[100%]" @click="songDetails(index)">
                                 </div>
@@ -141,7 +143,7 @@
             </div>
             <ul class="w-[100%]">
                 <li class="flex items-center pt-3 sticky top-0">
-                    <p class="w-[5vw] text-right pl-2 text-[6vw]">
+                    <p class="w-[5vw] text-right pl-2 text-[6vw]" @click="playAll">
                         <Icon icon="carbon:play-filled" color="red" />
                     </p>
                     <div class="w-[67%] pl-4">
@@ -155,7 +157,8 @@
                         </span>
                     </div>
                 </li>
-                <li class="w-[100%]  h-[15vw] flex items-center" v-for="(  item, index  ) in   res1  ">
+                <li class="w-[100%]  h-[15vw] flex items-center" v-for="(  item, index  ) in   res1  " :key="item.id"
+                    @click="playSingle(item.id)">
                     <p class="w-[5vw] text-right">{{ index + 1 }}</p>
                     <div class="w-[70%] h-[100%] pl-3 overflow-hidden whitespace-nowrap">
                         <p class="pt-[3.5vw] text-[3vw] overflow-ellipsis">{{ item.name }}</p>
@@ -179,6 +182,7 @@
 <script>
 import { songDetails, songAll } from '@/request'
 import axios from 'axios';
+import store from 'storejs'
 export default {
     data() {
         return {
@@ -189,11 +193,9 @@ export default {
         }
     },
     async created() {
-        // console.log(this.$route)
         songDetails(this.$route.query.id).then((res) => {
             console.log(res)
             this.songList = res.data.playlist
-            // console.log(this.songList);
         })
 
         songAll(this.$route.query.id).then((res) => {
@@ -219,7 +221,25 @@ export default {
         showtop() {
             console.log(111);
             this.visible = !this.visible;
-        }
+        },
+        showdown() {
+            console.log(111);
+            this.visible = !this.visible;
+        },
+        playAll() {
+            this.$player.replacePlaylist(
+                this.res1.map((song) => song.id, '', '', ''),
+                store.set('cookie_music', this.res1)
+            );
+            console.log('$player', window.$player._currentTrack?.al?.picUrl);
+        },
+        // 播放器 播放单个
+        playSingle(id) {
+            this.$player.replacePlaylist([id], '', '');
+            store.set('cookie_music', this.res1);
+            // this.$router.push('/PlayerHome')
+        },
+
     }
 
 

@@ -9,7 +9,7 @@
             </span>
         </div>
         <van-swipe class="my-swipe pl-6" :loop="false" indicator-color="white" :show-indicators="false">
-            <van-swipe-item v-for="item in blocks">
+            <van-swipe-item v-for="item in blocks" :key="item.id">
                 <div :key="item.id"
                     class="p-[2vw] mr-[10vw] overflow-hidden w-[90vw] m-[2.5vw] ml-0 h-[50vw] bg-white scroll-item dark:bg-[#26262E] rounded-lg"
                     ref="song">

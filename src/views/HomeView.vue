@@ -65,7 +65,7 @@ export default {
                     }
                 )
                 .then((res) => {
-                    // console.log( res.data.playlists);
+                    console.log(res.data);
                     this.playlists = res.data.playlists;
                 });
         },

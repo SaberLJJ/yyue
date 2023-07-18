@@ -16,10 +16,15 @@
             class="dark:bg-[#000] dark:text-slate-500 ">
             <div class=" bg-slate-100 dark:bg-gray-900 text-[black] dark:text-slate-500">
                 <div class="flex items-center justify-between pt-3">
-                    <p class="text-[4vw] flex items-center">
-                        <Icon icon="mingcute:user-4-fill" color="pink" />
-                        <span class="text-[2vw]">云村村民</span>
-                    </p>
+                    <div class="flex items-center justify-between pl-3">
+                        <div class="w-[8vw] h-[8vw] rounded-full overflow-hidden">
+                            <img :src=PersonalData.avatarUrl alt="" class="w-[100%] h-[100%]">
+                        </div>
+                        <p class="text-[6vw] flex items-center pl-4">
+                            <span class="text-[2vw]" @click="$router.push('/UserDetails')">{{ PersonalData.nickname
+                            }}</span>
+                        </p>
+                    </div>
                     <p class="pr-[3vw]">
                         <Icon icon="teenyicons:scan-solid" />
                     </p>
@@ -334,7 +339,7 @@
 </template>
 
 <script>
-import { fetchSearchDefault, fetchSearchResult } from '../request/index';
+import { fetchSearchDefault, fetchSearchResult, getUserQing } from '@/request';
 import { Dialog } from 'vant';
 
 export default {
@@ -345,6 +350,7 @@ export default {
             suokey: '',
             show: false,
             checked: false,
+            PersonalData: []
         };
 
     },
@@ -359,7 +365,10 @@ export default {
         this.tishi = ress.data.data;
         console.log(this.tishi);
 
-
+        getUserQing().then((res) => {
+            this.PersonalData = res.data.profile;
+            console.log(this.PersonalData);
+        })
     },
     methods: {
         fn() {
@@ -375,15 +384,10 @@ export default {
                 message: '确定要退出当前的账号吗',
             })
                 .then(() => {
-                    // on confirm
-                    // console.log('Confirmed');
-                    // localStorage.clear(); // 清除 localStorage
                     // 获取 __m__cookie 值
                     const mCookie = localStorage.getItem("__m__cookie");
-
                     // 移除 __m__cookie 键
                     localStorage.removeItem("__m__cookie");
-
                     this.$router.push('/Login')
 
                 })

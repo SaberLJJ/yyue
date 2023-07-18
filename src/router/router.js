@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: '/Login',
+    redirect: '/XiangQing',
   },
   {
     path: '/home',
@@ -35,6 +35,28 @@ const routes = [
   {
     path: '/song',
     component: () => import('../views/SongSheet.vue'),
+  },
+  {
+    path: '/UserDetails',
+    component: () => import('../views/UserDetails.vue'),
+  },
+  {
+    path: '/XiangQing',
+    component: () => import('../views/XiangQing.vue'),
+  },
+  {
+    path: '/MusicPlayerView',
+    component: () => import('../views/MusicPlayerView.vue'),
+  },
+  {
+    path: '/MVView',
+    component: () => import('../views/MVView.vue'),
+  },
+  // 播放mv页面路由
+  {
+    path: '/playvideo',
+    name: 'playvideo',
+    component: () => import('../views/VideoPlayerView.vue'),
   },
 ];
 

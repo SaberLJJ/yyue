@@ -42,6 +42,12 @@ module.exports = {
         test: /\.(woff | eot | ttf | otf | svg)$/,
         type: 'asset/resource',
       },
+      {
+        test: /\.jsx$/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
     ],
   },
   mode: process.env.NODE_ENV,

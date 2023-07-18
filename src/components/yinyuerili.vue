@@ -44,7 +44,8 @@ export default {
     data() {
         return {
             rili: [],
-            show: false
+            show: false,
+            onlineTime: 0
         };
     },
     components: {

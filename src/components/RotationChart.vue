@@ -1,6 +1,6 @@
 <template>
     <van-swipe class="my-swipe pt-[3vw]" :autoplay="3000" indicator-color="white ">
-        <van-swipe-item v-for="item in banners" class="w-[100%] rounded-[3vw] overflow-hidden ">
+        <van-swipe-item v-for="item in banners" class="w-[100%] rounded-[3vw] overflow-hidden " :key="item.id">
             <img :src="item.pic" alt="" class="w-[100%] h-[100%]" />
         </van-swipe-item>
     </van-swipe>

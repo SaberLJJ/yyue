@@ -8,7 +8,7 @@
 
 
         </template>
-        <p class="absolute top-[5.5vw] left-[8.5vw] text-[2vw] text-[#bb3535]">
+        <p class="absolute top-[5.5vw] left-[7.7vw] text-[2vw] text-[#bb3535]">
             {{ day }}
         </p>
 

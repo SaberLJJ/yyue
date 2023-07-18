@@ -59,7 +59,7 @@ export default {
 
             )
             .then((res) => {
-
+                console.log(res.data.data);
                 this.dingzhi = res.data.data.blocks[5];
                 this.newsongArr = res.data.data.blocks[5].creatives;
 
